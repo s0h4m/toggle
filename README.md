@@ -91,7 +91,7 @@ Toggle.with(context).check("custom_network_component").getLatest().defaultState(
 The state of the feature can be found in checkResponse.state along with other things present in the config like metadata
 
 ###Other resources
-You can find out more about Toggle specific configuration questions in our wiki You can find more information on the configuration parameters and how they work in the wiki [here](https://github.com/s0h4m/toggle/wiki).  
+You can find out more about Toggle specific configuration questions in our [wiki](https://github.com/s0h4m/toggle/wiki).  
         
 ###Download
 
