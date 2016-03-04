@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/triveous/Feature-Toggle.svg?branch=master)](https://travis-ci.org/triveous/Feature-Toggle)
+[![Build Status](https://travis-ci.org/s0h4m/toggle.svg?branch=master)](https://travis-ci.org/s0h4m/toggle)
 
 ##A simple android library to add Feature-Toggle capability in your app 
 
