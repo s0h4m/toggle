@@ -43,7 +43,7 @@ This configuration file allows you to:
 - disable the 'mixpanel' feature if the device is a google nexus 5 or a samsung s4
 - enable the 'mixpanel' feature otherwise (default: enabled)
 
-You can find more information on the configuration parameters and how they work in the wiki here. 
+You can find more information on the configuration parameters and how they work in the wiki [here](https://github.com/s0h4m/toggle/wiki). 
 
 ####Step 2: Download a new configuration
 You can download a new configuration in any of the following ways:
@@ -89,6 +89,9 @@ Toggle.with(context).check("custom_network_component").getLatest().defaultState(
 ```
 
 The state of the feature can be found in checkResponse.state along with other things present in the config like metadata
+
+###Other resources
+You can find out more about Toggle specific configuration questions in our wiki You can find more information on the configuration parameters and how they work in the wiki [here](https://github.com/s0h4m/toggle/wiki).  
         
 ###Download
 
