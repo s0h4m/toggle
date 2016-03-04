@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Toggle by s0h4m</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Toggle</h1>
+      <h2 class="project-tagline">A library to add Feature-Toggle capability to your android app</h2>
+      <a href="https://github.com/s0h4m/toggle" class="btn">View on GitHub</a>
+      <a href="https://github.com/s0h4m/toggle/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/s0h4m/toggle/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h2>
+<a id="a-simple-android-library-to-add-feature-toggle-capability-in-your-app" class="anchor" href="#a-simple-android-library-to-add-feature-toggle-capability-in-your-app" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>A simple android library to add Feature-Toggle capability in your app</h2>
+
+<h3>
+<a id="philosophy" class="anchor" href="#philosophy" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Philosophy</h3>
+
+<p>A feature toggle, is a technique in software development that helps alter the state of a feature in an application dynamically. For more information, please check <a href="https://en.wikipedia.org/wiki/Feature_toggle">this link.</a></p>
+
+<h3>
+<a id="example" class="anchor" href="#example" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Example</h3>
+
+<p>So say, you'd like to disable features like video (or analytics) for a certain group of users (based on api levels and devices) and enable them for the rest, you would need to do the following</p>
+
+<h4>
+<a id="step-1-create-a-configuration-file-in-the-following-json-format-and-host-it-somewhere-on-your-server-s3-etc" class="anchor" href="#step-1-create-a-configuration-file-in-the-following-json-format-and-host-it-somewhere-on-your-server-s3-etc" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Step 1: Create a configuration file in the following json format and host it somewhere (on your server, S3, etc.)</h4>
+
+<div class="highlight highlight-source-js"><pre>{<span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>myapp<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>features<span class="pl-pds">"</span></span><span class="pl-k">:</span>
+    [
+        {<span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span><span class="pl-k">:</span><span class="pl-s"><span class="pl-pds">"</span>video<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>default<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>enabled<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>rules<span class="pl-pds">"</span></span><span class="pl-k">:</span>[
+            {<span class="pl-s"><span class="pl-pds">"</span>state<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>disabled<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>value<span class="pl-pds">"</span></span><span class="pl-k">:</span> 
+                {<span class="pl-s"><span class="pl-pds">"</span>apilevel_min<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-c1">21</span>, <span class="pl-s"><span class="pl-pds">"</span>apilevel_max<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-c1">23</span>, <span class="pl-s"><span class="pl-pds">"</span>device<span class="pl-pds">"</span></span><span class="pl-k">:</span>[{<span class="pl-s"><span class="pl-pds">"</span>manufacturer<span class="pl-pds">"</span></span><span class="pl-k">:</span><span class="pl-s"><span class="pl-pds">"</span>xiaomi<span class="pl-pds">"</span></span>,<span class="pl-s"><span class="pl-pds">"</span>model<span class="pl-pds">"</span></span><span class="pl-k">:</span><span class="pl-s"><span class="pl-pds">"</span>mi3<span class="pl-pds">"</span></span>}, {<span class="pl-s"><span class="pl-pds">"</span>manufacturer<span class="pl-pds">"</span></span><span class="pl-k">:</span><span class="pl-s"><span class="pl-pds">"</span>samsung<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>model<span class="pl-pds">"</span></span><span class="pl-k">:</span><span class="pl-s"><span class="pl-pds">"</span>s4<span class="pl-pds">"</span></span>}]}
+        }, 
+            {<span class="pl-s"><span class="pl-pds">"</span>state<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>disabled<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>value<span class="pl-pds">"</span></span><span class="pl-k">:</span> {<span class="pl-s"><span class="pl-pds">"</span>appversion_max<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-c1">13</span>}}
+        ]},
+        {<span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span><span class="pl-k">:</span><span class="pl-s"><span class="pl-pds">"</span>crash_reporting<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>rules<span class="pl-pds">"</span></span><span class="pl-k">:</span>[
+                {<span class="pl-s"><span class="pl-pds">"</span>state<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>disabled<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>value<span class="pl-pds">"</span></span><span class="pl-k">:</span> 
+                    {<span class="pl-s"><span class="pl-pds">"</span>appversion<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-c1">11</span>, <span class="pl-s"><span class="pl-pds">"</span>buildtype<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>false<span class="pl-pds">"</span></span>}
+                }
+            ]
+        },
+        {<span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span><span class="pl-k">:</span><span class="pl-s"><span class="pl-pds">"</span>mixpanel<span class="pl-pds">"</span></span>,<span class="pl-s"><span class="pl-pds">"</span>default<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>enabled<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>rules<span class="pl-pds">"</span></span><span class="pl-k">:</span>[
+            {<span class="pl-s"><span class="pl-pds">"</span>state<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>disabled<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>value<span class="pl-pds">"</span></span><span class="pl-k">:</span> 
+                {<span class="pl-s"><span class="pl-pds">"</span>device<span class="pl-pds">"</span></span><span class="pl-k">:</span>[{<span class="pl-s"><span class="pl-pds">"</span>model<span class="pl-pds">"</span></span><span class="pl-k">:</span><span class="pl-s"><span class="pl-pds">"</span>Google Nexus 5 - 5.1.0 - API 22 - 1080x1920<span class="pl-pds">"</span></span>}, {<span class="pl-s"><span class="pl-pds">"</span>manufacturer<span class="pl-pds">"</span></span><span class="pl-k">:</span><span class="pl-s"><span class="pl-pds">"</span>samsung<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>model<span class="pl-pds">"</span></span><span class="pl-k">:</span><span class="pl-s"><span class="pl-pds">"</span>s4<span class="pl-pds">"</span></span>}]}
+        }
+        ]}
+    ]
+}</pre></div>
+
+<p>This configuration file allows you to:</p>
+
+<ul>
+<li>disable the 'video' feature when all of the following get satisfied: 
+
+<ul>
+<li>api level between 21 and 23</li>
+<li>the device type is either a xiaomi mi3 or a samsung s4</li>
+</ul>
+</li>
+<li>disable the 'video' feature if the app version is less than 13</li>
+<li>enable the 'video' feature otherwise (default: enabled)</li>
+<li>disable the 'mixpanel' feature if the device is a google nexus 5 or a samsung s4</li>
+<li>enable the 'mixpanel' feature otherwise (default: enabled)</li>
+</ul>
+
+<p>You can find more information on the configuration parameters and how they work in the wiki <a href="https://github.com/s0h4m/toggle/wiki">here</a>. </p>
+
+<h4>
+<a id="step-2-download-a-new-configuration" class="anchor" href="#step-2-download-a-new-configuration" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Step 2: Download a new configuration</h4>
+
+<p>You can download a new configuration in any of the following ways:</p>
+
+<ul>
+<li>By passing a url</li>
+</ul>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-smi">Toggle</span><span class="pl-k">.</span>with(context)<span class="pl-k">.</span>setConfig(myUrl);</pre></div>
+
+<ul>
+<li>Downloading the config manually and then pass the same to Toggle as a String (in the Config JSON format)</li>
+</ul>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-smi">String</span> configInJson <span class="pl-k">=</span> <span class="pl-c1">...</span> <span class="pl-c">// my custom code for downloading the config from my server and retrieving it as a json</span>
+<span class="pl-smi">Toggle</span><span class="pl-k">.</span>with(context)<span class="pl-k">.</span>setConfig(configInJson);</pre></div>
+
+<ul>
+<li>Downloading the config manually and then pass the same to Toggle as a Config object</li>
+</ul>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-smi">Config</span> config <span class="pl-k">=</span> <span class="pl-c1">...</span> <span class="pl-c">// my custom call (say Retrofit for example) for retrieving the Config object from my server</span>
+<span class="pl-smi">Toggle</span><span class="pl-k">.</span>with(context)<span class="pl-k">.</span>setConfig(config);</pre></div>
+
+<p>Once setConfig is called (in any form) the config is then cached locally, so you can always check for a feature later</p>
+
+<h4>
+<a id="step-3-check-for-the-state-of-a-feature-at-any-time-even-if-you-are-offline" class="anchor" href="#step-3-check-for-the-state-of-a-feature-at-any-time-even-if-you-are-offline" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Step 3: Check for the state of a feature at any time (even if you are offline)</h4>
+
+<p>You can check for a feature using the check method</p>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-smi">Toggle</span><span class="pl-k">.</span>with(context)<span class="pl-k">.</span>check(<span class="pl-s"><span class="pl-pds">"</span>custom_network_component<span class="pl-pds">"</span></span>)<span class="pl-k">.</span>defaultState(<span class="pl-smi">Toggle</span><span class="pl-c1"><span class="pl-k">.</span>ENABLED</span>)<span class="pl-k">.</span>start(<span class="pl-k">new</span> <span class="pl-smi">cc.soham.toggle.callbacks<span class="pl-k">.</span>Callback</span>() {
+            <span class="pl-k">@Override</span>
+            <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">onStatusChecked</span>(<span class="pl-smi">CheckResponse</span> <span class="pl-v">checkResponse</span>) {
+                updateUiAfterResponse(checkResponse<span class="pl-k">.</span>featureName, checkResponse<span class="pl-k">.</span>state, checkResponse<span class="pl-k">.</span>featureMetaData, checkResponse<span class="pl-k">.</span>ruleMetadata, checkResponse<span class="pl-k">.</span>cached);
+            }
+        });</pre></div>
+
+<p>In case you used a URL in setConfig, you can also use the getLatest flag to get the latest config before making the callback</p>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-smi">Toggle</span><span class="pl-k">.</span>with(context)<span class="pl-k">.</span>check(<span class="pl-s"><span class="pl-pds">"</span>custom_network_component<span class="pl-pds">"</span></span>)<span class="pl-k">.</span>getLatest()<span class="pl-k">.</span>defaultState(<span class="pl-smi">Toggle</span><span class="pl-c1"><span class="pl-k">.</span>ENABLED</span>)<span class="pl-k">.</span>start(<span class="pl-k">new</span> <span class="pl-smi">cc.soham.toggle.callbacks<span class="pl-k">.</span>Callback</span>() {
+            <span class="pl-k">@Override</span>
+            <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">onStatusChecked</span>(<span class="pl-smi">CheckResponse</span> <span class="pl-v">checkResponse</span>) {
+                updateUiAfterResponse(checkResponse<span class="pl-k">.</span>featureName, checkResponse<span class="pl-k">.</span>state, checkResponse<span class="pl-k">.</span>featureMetaData, checkResponse<span class="pl-k">.</span>ruleMetadata, checkResponse<span class="pl-k">.</span>cached);
+            }
+        });</pre></div>
+
+<p>The state of the feature can be found in checkResponse.state along with other things present in the config like metadata</p>
+
+<h3>
+<a id="other-resources" class="anchor" href="#other-resources" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Other resources</h3>
+
+<p>You can find out more about Toggle in our <a href="https://github.com/s0h4m/toggle/wiki">wiki</a>.  </p>
+
+<h3>
+<a id="download" class="anchor" href="#download" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Download</h3>
+
+<p>Get this via Gradle:</p>
+
+<div class="highlight highlight-source-groovy"><pre>compile <span class="pl-s"><span class="pl-pds">'</span>cc.soham:toggle:0.1<span class="pl-pds">'</span></span></pre></div>
+
+<p>or Maven:</p>
+
+<div class="highlight highlight-text-xml"><pre>&lt;<span class="pl-ent">dependency</span>&gt;
+  &lt;<span class="pl-ent">groupId</span>&gt;cc.soham&lt;/<span class="pl-ent">groupId</span>&gt;
+  &lt;<span class="pl-ent">artifactId</span>&gt;toggle&lt;/<span class="pl-ent">artifactId</span>&gt;
+  &lt;<span class="pl-ent">version</span>&gt;0.1&lt;/<span class="pl-ent">version</span>&gt;
+&lt;/<span class="pl-ent">dependency</span>&gt;</pre></div>
+
+<h3>
+<a id="proguard" class="anchor" href="#proguard" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>ProGuard</h3>
+
+<p>If you are using ProGuard you might need to add the following option:</p>
+
+<pre><code>-dontwarn cc.soham.toggle.**
+</code></pre>
+
+<h3>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>License</h3>
+
+<pre><code>Copyright 2016 Soham Mondal
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.        
+</code></pre>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/s0h4m/toggle">Toggle</a> is maintained by <a href="https://github.com/s0h4m">s0h4m</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+            <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-12231679-2");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+  </body>
+</html>
