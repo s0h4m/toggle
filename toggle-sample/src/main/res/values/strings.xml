@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Toggle Sample</string>
+    <string name="label_network">Network Config Example</string>
+    <string name="label_retrofit">Retrofit Config Example</string>
+    <string name="label_string">String Config Example</string>
+    <string name="label_object">Object Config Example</string>
+    <string name="label_home">Toggle Sample App</string>
+</resources>

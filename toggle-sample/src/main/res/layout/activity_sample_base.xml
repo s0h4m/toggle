@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin">
+
+    <Button
+        android:id="@+id/activity_sample_set_config"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:text="Set Config" />
+
+    <Button
+        android:id="@+id/activity_sample_check"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/activity_sample_set_config"
+        android:text="Check" />
+
+    <Button
+        android:id="@+id/activity_sample_feature"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="Feature name/state will appear here" />
+
+    <TextView
+        android:id="@+id/activity_sample_feature_feature_metadata"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/activity_sample_feature"
+        android:layout_centerHorizontal="true"
+        android:text="Feature Metadata will appear here" />
+
+    <TextView
+        android:id="@+id/activity_sample_feature_rule_metadata"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/activity_sample_feature_feature_metadata"
+        android:layout_centerHorizontal="true"
+        android:text="Rule Metadata will appear here" />
+
+    <TextView
+        android:id="@+id/activity_sample_feature_cached"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/activity_sample_feature_rule_metadata"
+        android:layout_centerHorizontal="true"
+        android:text="Cache state will appear here" />
+
+    <ProgressBar
+        android:id="@+id/activity_sample_feature_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/activity_sample_feature"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+
+</RelativeLayout>
