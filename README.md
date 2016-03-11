@@ -90,8 +90,16 @@ Toggle.with(context).check("custom_network_component").getLatest().defaultState(
 
 The state of the feature can be found in checkResponse.state along with other things present in the config like metadata
 
+###Optional parameters when using check
+
+- **onError(ErrorCallback errorCallback)**: provide an optional callback in case any error is encountered in checking the state of the feature
+- **getLatest()**: checks for the latest Config before returning the state (only valid for URL powered configs)
+- **defaultState(String defaultState)**: sets the default state of this request
+
+For more information do check the [implementation of CheckRequest.Builder](https://github.com/s0h4m/toggle/blob/master/toggle/src/main/java/cc/soham/toggle/CheckRequest.java)
+
 ###Other resources
-You can find out more about Toggle specific configuration questions in our [wiki](https://github.com/s0h4m/toggle/wiki).  
+You can find out more about Toggle in our [wiki](https://github.com/s0h4m/toggle/wiki).  
         
 ###Download
 
