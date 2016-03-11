@@ -4,7 +4,7 @@
 
 ###Philosophy
 
-A feature toggle, is a technique in software development that helps alter the state of a feature in an application dynamically. For more example, check out [this link.](https://en.wikipedia.org/wiki/Feature_toggle)
+A feature toggle, is a technique in software development that helps alter the state of a feature in an application dynamically. For more information, check out [this link.](https://en.wikipedia.org/wiki/Feature_toggle)
 
 ###Example
 So say, you'd like to disable features like video (or analytics) for a certain group of users (based on api levels and devices) and enable them for the rest, you would need to do the following
