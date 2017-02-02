@@ -111,7 +111,7 @@ public class RuleMatcher {
     public static boolean matchBuildType(String buildType) {
         if (buildType == null)
             return true;
-        if (getBuildType() == buildType) return true;
+        if (getBuildType().equals(buildType)) return true;
         else return false;
     }
 
