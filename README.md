@@ -1,15 +1,15 @@
 [![Build Status](https://travis-ci.org/s0h4m/toggle.svg?branch=master)](https://travis-ci.org/s0h4m/toggle)
 
-##A simple android library to add Feature-Toggle capability in your app 
+## A simple android library to add Feature-Toggle capability in your app 
 
-###Philosophy
+### Philosophy
 
 A feature toggle, is a technique in software development that helps alter the state of a feature in an application dynamically. For more information, check out [this link.](https://en.wikipedia.org/wiki/Feature_toggle)
 
-###Example
+### Example
 So say, you'd like to disable features like video (or analytics) for a certain group of users (based on api levels and devices) and enable them for the rest, you would need to do the following
 
-####Step 1: Create a configuration file in the following json format and host it somewhere (on your server, S3, etc.) 
+#### Step 1: Create a configuration file in the following json format and host it somewhere (on your server, S3, etc.) 
 ```javascript
 {"name": "myapp", "features":
 	[
@@ -45,7 +45,7 @@ This configuration file allows you to:
 
 You can find more information on the configuration parameters and how they work in the wiki [here](https://github.com/s0h4m/toggle/wiki). 
 
-####Step 2: Download a new configuration
+#### Step 2: Download a new configuration
 You can download a new configuration in any of the following ways:
 
 - By passing a url
@@ -67,7 +67,7 @@ Toggle.with(context).setConfig(config);
 Once setConfig is called (in any form) the config is then cached locally, so you can always check for a feature later
 
 
-####Step 3: Check for the state of a feature at any time (even if you are offline)
+#### Step 3: Check for the state of a feature at any time (even if you are offline)
 You can check for a feature using the check method
 ```java
 Toggle.with(context).check("custom_network_component").defaultState(Toggle.ENABLED).start(new cc.soham.toggle.callbacks.Callback() {
@@ -90,7 +90,7 @@ Toggle.with(context).check("custom_network_component").getLatest().defaultState(
 
 The state of the feature can be found in checkResponse.state along with other things present in the config like metadata
 
-###Optional parameters when using check
+### Optional parameters when using check
 
 - **onError(ErrorCallback errorCallback)**: provide an optional callback in case any error is encountered in checking the state of the feature
 - **getLatest()**: checks for the latest Config before returning the state (only valid for URL powered configs)
@@ -98,10 +98,10 @@ The state of the feature can be found in checkResponse.state along with other th
 
 For more information do check the [implementation of CheckRequest.Builder](https://github.com/s0h4m/toggle/blob/master/toggle/src/main/java/cc/soham/toggle/CheckRequest.java)
 
-###Other resources
+### Other resources
 You can find out more about Toggle in our [wiki](https://github.com/s0h4m/toggle/wiki).  
         
-###Download
+### Download
 
 Get this via Gradle:
 ```groovy
@@ -117,7 +117,7 @@ or Maven:
 ```
 
 
-###ProGuard
+### ProGuard
 
 If you are using ProGuard you might need to add the following option:
 ```
@@ -125,7 +125,7 @@ If you are using ProGuard you might need to add the following option:
 ```
 
 
-###License
+### License
 
     Copyright 2016 Soham Mondal
 
@@ -141,7 +141,7 @@ If you are using ProGuard you might need to add the following option:
     See the License for the specific language governing permissions and
     limitations under the License.        
 
-###What's next
+### What's next
 These are the things that are coming up in Toggle
 - custom rule-matchers/checks (beyond the usual api-level/app-version/date etc.) that you can define
 - faster lookups in check (use hashmaps to look up the states)
