@@ -3,7 +3,7 @@ package cc.soham.togglesample;
 import android.widget.ProgressBar;
 
 /**
- * Simple interface to faciliate Espresso testing
+ * Simple interface to facilitate Espresso testing
  */
 public interface ProgressBarInterface {
     ProgressBar getProgressBar();

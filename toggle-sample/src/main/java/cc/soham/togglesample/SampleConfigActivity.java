@@ -13,7 +13,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cc.soham.toggle.Toggle;
@@ -29,15 +29,15 @@ import cc.soham.toggle.objects.Value;
  * - To check for the feature, use {@link Toggle#check(String)} to check for the status of the feature
  */
 public class SampleConfigActivity extends AppCompatActivity {
-    @Bind(R.id.activity_sample_feature)
+    @BindView(R.id.activity_sample_feature)
     Button featureButton;
-    @Bind(R.id.activity_sample_feature_rule_metadata)
+    @BindView(R.id.activity_sample_feature_rule_metadata)
     TextView ruleMetadataTextView;
-    @Bind(R.id.activity_sample_feature_feature_metadata)
+    @BindView(R.id.activity_sample_feature_feature_metadata)
     TextView featureMetadataTextView;
-    @Bind(R.id.activity_sample_feature_cached)
+    @BindView(R.id.activity_sample_feature_cached)
     TextView cachedTextView;
-    @Bind(R.id.activity_sample_feature_progress)
+    @BindView(R.id.activity_sample_feature_progress)
     ProgressBar progressBar;
 
     @Override

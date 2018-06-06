@@ -15,7 +15,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnItemClick;
 
@@ -23,7 +23,7 @@ import butterknife.OnItemClick;
  * App home page, shows a list of all the available samples
  */
 public class SampleActivity extends AppCompatActivity {
-    @Bind(R.id.activity_sample_samples)
+    @BindView(R.id.activity_sample_samples)
     ListView samplesListView;
 
     SampleArrayAdapter sampleArrayAdapter;
@@ -105,7 +105,7 @@ public class SampleActivity extends AppCompatActivity {
         }
 
         public class ViewHolder {
-            @Bind(R.id.activity_sample_item_title)
+            @BindView(R.id.activity_sample_item_title)
             TextView titleTextView;
 
             public ViewHolder(View convertView) {
