@@ -44,13 +44,13 @@ dependencies {
         exclude group: 'com.android.support', module:'support-annotations'
     }
     // Testing-only dependencies
-    androidTestImplementation 'com.android.support.test:runner:0.4.1'
-    androidTestImplementation 'com.android.support.test:rules:0.4.1'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:2.2.1'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test:rules:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     // Espresso-idling-resource for synchronization with background jobs
-    androidTestImplementation 'com.android.support.test.espresso:espresso-idling-resource:2.2.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-idling-resource:3.0.2'
     //Intents
-    androidTestImplementation 'com.android.support.test.espresso:espresso-intents:2.2.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-intents:3.0.2'
     // assertj
     androidTestImplementation 'com.squareup.assertj:assertj-android:1.1.1'
     androidTestImplementation 'org.assertj:assertj-core:1.7.1'

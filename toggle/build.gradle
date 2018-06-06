@@ -56,8 +56,8 @@ buildscript {
 }
 
 dependencies {
-    implementation 'com.android.support:support-annotations:23.1.1'
-    implementation 'com.google.code.gson:gson:2.4'
+    implementation 'com.android.support:support-annotations:27.1.1'
+    implementation 'com.google.code.gson:gson:2.8.4'
 
     provided 'com.squareup.okhttp3:okhttp:3.0.0-RC1'
     provided 'com.squareup.okio:okio:1.6.0'

@@ -15,7 +15,7 @@ public class MyApi {
     public static MyApiService getApi() {
         if(myApiService == null) {
             Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl("https://gist.githubusercontent.com/triveous/")
+                    .baseUrl("https://gist.githubusercontent.com/sohamtriveous/")
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
 
