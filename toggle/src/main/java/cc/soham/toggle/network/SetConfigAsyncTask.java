@@ -60,6 +60,8 @@ public class SetConfigAsyncTask extends AsyncTask<Void, Void, SetConfigResponse>
             String response = NetworkUtils.downloadUrl(url);
             // convert string to config
             Config config = ConversionUtils.convertStringToConfig(response);
+            // generate the map
+            config.generateFeatureMap();
             // store config
             Toggle.storeConfigInMem(config);
             PersistUtils.storeConfig(context, config);

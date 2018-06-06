@@ -28,6 +28,8 @@ public class SimpleConversionAndCheckCallbackAsyncTask extends AsyncTask<Void, V
     protected CheckResponse doInBackground(Void... params) {
         // convert string to config
         Config config = ConversionUtils.convertStringToConfig(configInString);
+        // generate the map
+        config.generateFeatureMap();
         // store config
         Toggle.storeConfigInMem(config);
         PersistUtils.storeConfig(checkRequest.toggle.getContext(), config);

@@ -39,4 +39,40 @@ public class Feature {
         this.featureMetadata = featureMetadata;
         this.rules = rules;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getFeatureMetadata() {
+        return featureMetadata;
+    }
+
+    public void setFeatureMetadata(String featureMetadata) {
+        this.featureMetadata = featureMetadata;
+    }
+
+    public String get_default() {
+        return _default;
+    }
+
+    public void set_default(String _default) {
+        this._default = _default;
+    }
+
+    public List<Rule> getRules() {
+        return rules;
+    }
 }

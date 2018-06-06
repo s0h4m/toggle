@@ -26,7 +26,11 @@ public class SimpleConversionAndCallbackAsyncTask extends AsyncTask<Void, Void, 
     @Override
     protected SetConfigResponse doInBackground(Void... params) {
         Config config = ConversionUtils.convertStringToConfig(configInString);
+        // generate the map
+        config.generateFeatureMap();
+        // store in memory
         Toggle.storeConfigInMem(config);
+        // persist
         PersistUtils.storeConfig(context, config);
         return new SetConfigResponse(config);
     }

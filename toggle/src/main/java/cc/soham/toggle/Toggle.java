@@ -14,8 +14,8 @@ import cc.soham.toggle.enums.SourceType;
 import cc.soham.toggle.network.CheckLatestAsyncTask;
 import cc.soham.toggle.network.OkHttpUtils;
 import cc.soham.toggle.network.SetConfigAsyncTask;
-import cc.soham.toggle.objects.Feature;
 import cc.soham.toggle.objects.Config;
+import cc.soham.toggle.objects.Feature;
 import cc.soham.toggle.objects.ResponseDecisionMeta;
 import cc.soham.toggle.objects.Rule;
 
@@ -38,6 +38,10 @@ public class Toggle {
     @VisibleForTesting
     static volatile Toggle singleton;
 
+    private Context context;
+    private SourceType sourceType;
+    private Config config;
+
     public static Toggle with(final Context context) {
         if (singleton == null) {
             synchronized (Toggle.class) {
@@ -47,10 +51,6 @@ public class Toggle {
         return singleton;
     }
 
-    private Context context;
-    private SourceType sourceType;
-    private Config config;
-
     public static void storeConfigInMem(Config config) {
         if (singleton != null) {
             singleton.config = config;
@@ -58,7 +58,7 @@ public class Toggle {
     }
 
     public static Config getConfig() {
-        if(singleton!=null) {
+        if (singleton != null) {
             return singleton.config;
         }
         return null;
@@ -81,6 +81,8 @@ public class Toggle {
         PersistUtils.storeSourceType(getContext(), SourceType.STRING);
         // convert from string to config
         Config config = ConversionUtils.convertStringToConfig(configInString);
+        // generate the map
+        config.generateFeatureMap();
         // store config
         storeConfigInMem(config);
         PersistUtils.storeConfig(getContext(), config);
@@ -92,6 +94,8 @@ public class Toggle {
         PersistUtils.storeSourceType(getContext(), SourceType.JSONOBJECT);
         // convert from json to config
         Config config = ConversionUtils.convertJSONObjectToConfig(configInJson);
+        // generate the map
+        config.generateFeatureMap();
         // store config
         storeConfigInMem(config);
         PersistUtils.storeConfig(getContext(), config);
@@ -154,6 +158,8 @@ public class Toggle {
             PersistUtils.getConfig(getContext(), new PreferenceReadCallback() {
                 @Override
                 public void onSuccess(Config config) {
+                    // calculate the map
+                    config.generateFeatureMap();
                     // store in mem
                     Toggle.storeConfigInMem(config);
                     // call the success method
@@ -202,6 +208,9 @@ public class Toggle {
                 throw new IllegalStateException("No configuration found (Config) and no default state configured in the state check");
             }
             return new CheckResponse(checkRequest.featureName, checkRequest.defaultState, null, null, true);
+        } else {
+            // generate the map
+            config.generateFeatureMap();
         }
         // process the config
         CheckResponse checkResponse = processConfig(config, checkRequest);
@@ -218,6 +227,7 @@ public class Toggle {
 
     @VisibleForTesting
         // TODO: unit test makeFeatureCheckCallback
+        // TODO: unit test makeFeatureCheckCallback
     void makeFeatureCheckCallback(CheckRequest checkRequest, CheckResponse checkResponse) {
         checkRequest.callback.onStatusChecked(checkResponse);
     }
@@ -230,13 +240,11 @@ public class Toggle {
      * @return
      */
     public CheckResponse processConfig(Config config, CheckRequest checkRequest) {
-        for (Feature feature : config.features) {
-            // find the given feature in the received Config
-            if (feature.name.equals(checkRequest.featureName)) {
-                ResponseDecisionMeta responseDecisionMeta = handleFeature(feature, checkRequest);
-                // if there is a decisive state (either enabled or disabled) initiate the callback and break
-                return new CheckResponse(checkRequest.featureName, responseDecisionMeta.state, responseDecisionMeta.featureMetadata, responseDecisionMeta.ruleMetadata);
-            }
+        if (config != null && config.getFeatureMap().containsKey(checkRequest.featureName)) {
+            Feature feature = config.getFeatureMap().get(checkRequest.featureName);
+            ResponseDecisionMeta responseDecisionMeta = handleFeature(feature, checkRequest);
+            // if there is a decisive state (either enabled or disabled) initiate the callback and break
+            return new CheckResponse(checkRequest.featureName, responseDecisionMeta.state, responseDecisionMeta.featureMetadata, responseDecisionMeta.ruleMetadata);
         }
         // a) feature not found or b) no state could be made based on the config
         // check if there was no default state in the request, send enabled (default toggle)
