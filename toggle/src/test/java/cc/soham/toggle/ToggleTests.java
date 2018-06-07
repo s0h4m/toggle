@@ -424,6 +424,9 @@ public class ToggleTests {
 
         Config config = new Config("myapp", features);
 
+        // check the feature map
+        assertValidConfig(config);
+
         String featureToBeSearched = "share";
         String defaultStateInRequest = Toggle.DISABLED;
 
@@ -435,6 +438,14 @@ public class ToggleTests {
         assertThat(checkResponse.ruleMetadata).isEqualTo(null);
         assertThat(checkResponse.cached).isFalse();
         assertThat(checkResponse.state).isEqualTo(defaultStateInRequest);
+    }
+
+    private void assertValidConfig(Config config) {
+        assertThat(config.getFeatureMap()).isNotNull();
+        assertThat(config.getFeatureMap().get("video")).isNotNull();
+        assertThat(config.getFeatureMap().get("audio")).isNotNull();
+        assertThat(config.getFeatureMap().get("speech")).isNotNull();
+        assertThat(config.getFeatureMap().get("random")).isNull();
     }
 
     @Test
@@ -453,6 +464,9 @@ public class ToggleTests {
         features.add(featureSpeech);
 
         Config config = new Config("myapp", features);
+
+        // check the feature map
+        assertValidConfig(config);
 
         String featureToBeSearched = "share";
         String defaultStateInRequest = Toggle.ENABLED;
@@ -483,6 +497,9 @@ public class ToggleTests {
         features.add(featureSpeech);
 
         Config config = new Config("myapp", features);
+
+        // check the feature map
+        assertValidConfig(config);
 
         String featureToBeSearched = "share";
         String defaultStateInRequest = null;
@@ -515,6 +532,9 @@ public class ToggleTests {
         features.add(featureSpeech);
 
         Config config = new Config("myapp", features);
+
+        // check the feature map
+        assertValidConfig(config);
 
         String featureToBeSearched = "video";
         String defaultStateInRequest = Toggle.ENABLED;
@@ -549,6 +569,9 @@ public class ToggleTests {
 
         Config config = new Config("myapp", features);
 
+        // check the feature map
+        assertValidConfig(config);
+
         String featureToBeSearched = "video";
         String defaultStateInRequest = Toggle.DISABLED;
 
@@ -581,6 +604,9 @@ public class ToggleTests {
         features.add(featureSpeech);
 
         Config config = new Config("myapp", features);
+
+        // check the feature map
+        assertValidConfig(config);
 
         String featureToBeSearched = "video";
         String defaultStateInRequest = null;
@@ -618,6 +644,9 @@ public class ToggleTests {
 
         Config config = new Config("myapp", features);
 
+        // check the feature map
+        assertValidConfig(config);
+
         String featureToBeSearched = "video";
         String defaultStateInRequest = Toggle.ENABLED;
 
@@ -650,6 +679,9 @@ public class ToggleTests {
         features.add(featureSpeech);
 
         Config config = new Config("myapp", features);
+
+        // check the feature map
+        assertValidConfig(config);
 
         String featureToBeSearched = "video";
         String defaultStateInRequest = Toggle.DISABLED;
@@ -684,6 +716,9 @@ public class ToggleTests {
 
         Config config = new Config("myapp", features);
 
+        // check the feature map
+        assertValidConfig(config);
+
         String featureToBeSearched = "video";
         String defaultStateInRequest = null;
 
@@ -716,6 +751,9 @@ public class ToggleTests {
         features.add(featureSpeech);
 
         Config config = new Config("myapp", features);
+
+        // check the feature map
+        assertValidConfig(config);
 
         String featureToBeSearched = "video";
         String defaultStateInRequest = null;
@@ -751,6 +789,9 @@ public class ToggleTests {
 
         Config config = new Config("myapp", features);
 
+        // check the feature map
+        assertValidConfig(config);
+
         String featureToBeSearched = "video";
         String defaultStateInRequest = Toggle.DISABLED;
 
@@ -783,6 +824,9 @@ public class ToggleTests {
         features.add(featureSpeech);
 
         Config config = new Config("myapp", features);
+
+        // check the feature map
+        assertValidConfig(config);
 
         String featureToBeSearched = "video";
         String defaultStateInRequest = Toggle.ENABLED;
@@ -817,6 +861,9 @@ public class ToggleTests {
 
         Config config = new Config("myapp", features);
 
+        // check the feature map
+        assertValidConfig(config);
+
         String featureToBeSearched = "video";
         String defaultStateInRequest = Toggle.DISABLED;
 
@@ -840,6 +887,9 @@ public class ToggleTests {
         Mockito.when(System.currentTimeMillis()).thenReturn(1453196889999L);
 
         Config config = getStandardConfig(ruleMetadata);
+
+        // check the feature map
+        assertValidConfig(config);
 
         String featureToBeSearched = "video";
         String defaultStateInRequest = Toggle.ENABLED;
@@ -963,31 +1013,6 @@ public class ToggleTests {
         toggle.getAndProcessCachedConfigSync(checkRequest);
     }
 
-    // handleFeatureCheckRequest
-    public void handleFeatureCheckRequest_checkCallWithoutGetConfig() {
-        Toggle toggle = new Toggle(context);
-        toggle.setSourceType(null);
-
-        PowerMockito.mockStatic(PersistUtils.class);
-        PowerMockito.when(PersistUtils.getSourceType(context)).thenReturn(SourceType.JSONOBJECT);
-
-        Callback callback = mock(Callback.class);
-
-        String featureToBeSearched = "video";
-        String defaultStateInRequest = Toggle.DISABLED;
-
-        CheckRequest checkRequest = new CheckRequest(toggle, featureToBeSearched, callback, defaultStateInRequest, false, null);
-
-        PowerMockito.spy(RuleMatcher.class);
-        PowerMockito.when(RuleMatcher.getBuildVersion()).thenReturn(16);
-
-        Config config = getStandardConfig(ruleMetadata);
-
-        toggle.handleFeatureCheckRequest(checkRequest);
-
-
-    }
-
     // example of using ArgumentCaptor to test callbacks
 
     @Captor
@@ -1030,6 +1055,9 @@ public class ToggleTests {
         CheckRequest checkRequest = new CheckRequest(toggle, featureToBeSearched, callback, defaultStateInRequest, false, null);
         Config config = getStandardConfig(ruleMetadata);
 
+        // check the feature map
+        assertValidConfig(config);
+
         // call the getAndProcessCachedConfig is called
         toggle.getAndProcessCachedConfig(checkRequest);
 
@@ -1070,6 +1098,9 @@ public class ToggleTests {
 
         CheckRequest checkRequest = new CheckRequest(toggle, featureToBeSearched, callback, defaultStateInRequest, false, null);
         Config config = getStandardConfig(ruleMetadata);
+
+        // check the feature map
+        assertValidConfig(config);
 
         // call the getAndProcessCachedConfig is called
         toggle.getAndProcessCachedConfig(checkRequest);
@@ -1112,6 +1143,9 @@ public class ToggleTests {
         CheckRequest checkRequest = new CheckRequest(toggle, featureToBeSearched, callback, defaultStateInRequest, false, null);
         Config config = getStandardConfig(ruleMetadata);
 
+        // check the feature map
+        assertValidConfig(config);
+
         // call the getAndProcessCachedConfig is called
         toggle.getAndProcessCachedConfig(checkRequest);
 
@@ -1153,6 +1187,9 @@ public class ToggleTests {
         CheckRequest checkRequest = new CheckRequest(toggle, featureToBeSearched, callback, defaultStateInRequest, false, null);
         Config config = getStandardConfig(ruleMetadata);
 
+        // check the feature map
+        assertValidConfig(config);
+
         // call the getAndProcessCachedConfig is called
         toggle.getAndProcessCachedConfig(checkRequest);
 
@@ -1193,6 +1230,9 @@ public class ToggleTests {
 
         CheckRequest checkRequest = new CheckRequest(toggle, featureToBeSearched, callback, defaultStateInRequest, false, null);
         Config config = getStandardConfig(ruleMetadata);
+
+        // check the feature map
+        assertValidConfig(config);
 
         // call the getAndProcessCachedConfig is called
         toggle.getAndProcessCachedConfig(checkRequest);
