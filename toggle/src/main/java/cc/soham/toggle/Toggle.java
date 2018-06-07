@@ -40,6 +40,7 @@ public class Toggle {
 
     private Context context;
     private SourceType sourceType;
+
     private Config config;
 
     public static Toggle with(final Context context) {
@@ -102,6 +103,9 @@ public class Toggle {
     }
 
     public void setConfig(Config config) {
+        // check for the config map
+        if(config.getFeatureMap() == null)
+            config.generateFeatureMap();
         setSourceType(SourceType.CONFIG);
         // store source
         PersistUtils.storeSourceType(getContext(), SourceType.CONFIG);
@@ -220,14 +224,14 @@ public class Toggle {
 
     @NonNull
     @VisibleForTesting
-        // TODO: unit test getExceptionCheckResponse
+    // TODO: unit test getExceptionCheckResponse
     CheckResponse getExceptionCheckResponse(CheckRequest checkRequest) {
         return new CheckResponse(checkRequest.featureName, DEFAULT_STATE, null, null, true);
     }
 
     @VisibleForTesting
-        // TODO: unit test makeFeatureCheckCallback
-        // TODO: unit test makeFeatureCheckCallback
+    // TODO: unit test makeFeatureCheckCallback
+    // TODO: unit test makeFeatureCheckCallback
     void makeFeatureCheckCallback(CheckRequest checkRequest, CheckResponse checkResponse) {
         checkRequest.callback.onStatusChecked(checkResponse);
     }
