@@ -56,6 +56,9 @@ public class ToggleRetrofitTests {
         assertThat(Toggle.getConfig()).isNotNull();
         assertThat(Toggle.getConfig().name).isNotNull();
         assertThat(Toggle.getConfig().features).isNotNull();
+        assertThat(Toggle.getConfig().getFeatureMap()).isNotNull();
+        assertThat(Toggle.getConfig().getFeatureMap().get("video")).isNotNull();
+        assertThat(Toggle.getConfig().getFeatureMap().get("random")).isNull();
     }
 
     @Test

@@ -53,6 +53,9 @@ public class ToggleNetworkTests {
         assertThat(Toggle.getConfig()).isNotNull();
         assertThat(Toggle.getConfig().name).isNotNull();
         assertThat(Toggle.getConfig().features).isNotNull();
+        assertThat(Toggle.getConfig().getFeatureMap()).isNotNull();
+        assertThat(Toggle.getConfig().getFeatureMap().get("video")).isNotNull();
+        assertThat(Toggle.getConfig().getFeatureMap().get("random")).isNull();
     }
 
     @Test
@@ -68,6 +71,9 @@ public class ToggleNetworkTests {
         onView(withId(R.id.activity_sample_feature_feature_metadata)).check(matches(withText(any(String.class))));
         onView(withId(R.id.activity_sample_feature_rule_metadata)).check(matches(withText(any(String.class))));
         onView(withId(R.id.activity_sample_feature_cached)).check(matches(withText("Cached: true")));
+        assertThat(Toggle.getConfig().getFeatureMap()).isNotNull();
+        assertThat(Toggle.getConfig().getFeatureMap().get("video")).isNotNull();
+        assertThat(Toggle.getConfig().getFeatureMap().get("random")).isNull();
     }
 
     @Test
@@ -83,5 +89,8 @@ public class ToggleNetworkTests {
         onView(withId(R.id.activity_sample_feature_feature_metadata)).check(matches(withText(any(String.class))));
         onView(withId(R.id.activity_sample_feature_rule_metadata)).check(matches(withText(any(String.class))));
         onView(withId(R.id.activity_sample_feature_cached)).check(matches(withText("Cached: false")));
+        assertThat(Toggle.getConfig().getFeatureMap()).isNotNull();
+        assertThat(Toggle.getConfig().getFeatureMap().get("video")).isNotNull();
+        assertThat(Toggle.getConfig().getFeatureMap().get("random")).isNull();
     }
 }
