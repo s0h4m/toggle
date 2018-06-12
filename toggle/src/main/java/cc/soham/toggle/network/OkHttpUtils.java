@@ -7,6 +7,7 @@ import java.io.IOException;
 import cc.soham.toggle.CheckRequest;
 import cc.soham.toggle.PersistUtils;
 import cc.soham.toggle.callbacks.SetConfigCallback;
+import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -54,12 +55,12 @@ public class OkHttpUtils {
 
         getClient().newCall(request).enqueue(new Callback() {
             @Override
-            public void onFailure(Request request, IOException e) {
+            public void onFailure(Call call, IOException e) {
                 e.printStackTrace();
             }
 
             @Override
-            public void onResponse(Response response) throws IOException {
+            public void onResponse(Call call, Response response) throws IOException {
                 if (!response.isSuccessful())
                     throw new IOException("Unexpected code " + response);
 
@@ -88,12 +89,12 @@ public class OkHttpUtils {
 
         getClient().newCall(request).enqueue(new Callback() {
             @Override
-            public void onFailure(Request request, IOException e) {
+            public void onFailure(Call call, IOException e) {
                 e.printStackTrace();
             }
 
             @Override
-            public void onResponse(Response response) throws IOException {
+            public void onResponse(Call call, Response response) throws IOException {
                 if (!response.isSuccessful())
                     throw new IOException("Unexpected code " + response);
 
