@@ -30,6 +30,13 @@ public class PersistUtils {
     }
 
     /**
+     * Clears the config in disk
+     */
+    public static void clearConfig(final Context context) {
+        PreferenceManager.getDefaultSharedPreferences(context).edit().clear().apply();
+    }
+
+    /**
      * Retrieves the {@link Config} from disk
      * @param context
      * @param preferenceReadCallback
