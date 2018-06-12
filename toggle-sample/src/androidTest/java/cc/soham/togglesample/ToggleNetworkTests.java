@@ -10,6 +10,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import cc.soham.toggle.PersistUtils;
 import cc.soham.toggle.Toggle;
 
 import static android.support.test.espresso.Espresso.onView;
@@ -33,6 +34,7 @@ public class ToggleNetworkTests {
 
     @Before
     public void setup() {
+        PersistUtils.clearConfig(activityTestRule.getActivity().getApplicationContext());
         progressBarIdlingResource = new ProgressBarIdlingResource(activityTestRule.getActivity());
     }
 
