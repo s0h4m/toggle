@@ -13,7 +13,7 @@ ext {
     siteUrl = 'https://github.com/s0h4m/toggle'
     gitUrl = 'https://github.com/s0h4m/toggle.git'
 
-    libraryVersion = '0.1'
+    libraryVersion = '0.2'
 
     developerId = 's0h4m'
     developerName = 'Soham Mondal'
@@ -42,16 +42,6 @@ android {
     }
     testOptions {
         unitTests.returnDefaultValues = true
-    }
-}
-
-buildscript {
-    repositories {
-        jcenter()
-    }
-    dependencies {
-        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.4'
-        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.3'
     }
 }
 
