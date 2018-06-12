@@ -105,14 +105,14 @@ You can find out more about Toggle in our [wiki](https://github.com/s0h4m/toggle
 
 Get this via Gradle:
 ```groovy
-compile 'cc.soham:toggle:0.1'
+implementation 'cc.soham:toggle:0.2'
 ```
 or Maven:
 ```xml
 <dependency>
   <groupId>cc.soham</groupId>
   <artifactId>toggle</artifactId>
-  <version>0.1</version>
+  <version>0.2</version>
 </dependency>
 ```
 
