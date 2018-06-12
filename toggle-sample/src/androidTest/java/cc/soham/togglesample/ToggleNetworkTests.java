@@ -6,20 +6,20 @@ import android.support.test.runner.AndroidJUnit4;
 
 import org.junit.After;
 import org.junit.Before;
-
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import cc.soham.toggle.Toggle;
 
-import static android.support.test.espresso.Espresso.*;
-import static org.assertj.core.api.Assertions.assertThat;
-import static android.support.test.espresso.matcher.ViewMatchers.*;
-import static android.support.test.espresso.assertion.ViewAssertions.*;
-import static android.support.test.espresso.action.ViewActions.*;
+import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static org.hamcrest.Matchers.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.any;
+import static org.hamcrest.Matchers.anyOf;
 
 /**
  * Checks the Network calls in the sample
@@ -60,6 +60,7 @@ public class ToggleNetworkTests {
 
     @Test
     public void toggle_network_check() {
+        toggle_network_setConfig();
         // make sure the config is not loaded from memory
         Toggle.storeConfigInMem(null);
         // register the idling resource so that we can know when the config is done
@@ -78,6 +79,7 @@ public class ToggleNetworkTests {
 
     @Test
     public void toggle_network_checkLatest() {
+        toggle_network_setConfig();
         // make sure the config is not loaded from memory
         Toggle.storeConfigInMem(null);
         // register the idling resource so that we can know when the config is done
