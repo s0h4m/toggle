@@ -1,5 +1,8 @@
 package cc.soham.toggle.network;
 
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -19,7 +22,7 @@ public class NetworkUtils {
     // Given a URL, establishes an HttpUrlConnection and retrieves
     // the web page content as a InputStream, which it returns as
     // a string.
-    public static String downloadUrl(String myurl) throws IOException {
+    public static String downloadUrl(@NonNull String myurl) throws IOException {
         InputStream is = null;
         String contentAsString;
         try {
@@ -69,7 +72,7 @@ public class NetworkUtils {
      * @param setConfigResponse
      * @param setConfigCallback
      */
-    public static void initiateCallback(SetConfigResponse setConfigResponse, SetConfigCallback setConfigCallback) {
+    public static void initiateCallback(@Nullable SetConfigResponse setConfigResponse, @Nullable SetConfigCallback setConfigCallback) {
         // make the callback if configured
         if (setConfigCallback != null && setConfigResponse != null) {
             setConfigCallback.onConfigReceived(setConfigResponse.config, setConfigResponse.cached);
@@ -82,9 +85,9 @@ public class NetworkUtils {
      * @param checkResponse
      * @param checkRequest
      */
-    public static void initiateCallbackAfterCheck(CheckResponse checkResponse, CheckRequest checkRequest) {
+    public static void initiateCallbackAfterCheck(@Nullable CheckResponse checkResponse, @Nullable CheckRequest checkRequest) {
         // make the callback if configured
-        if (checkRequest.callback != null) {
+        if (checkRequest != null && checkRequest.callback != null) {
             if (checkResponse != null) {
                 checkRequest.callback.onStatusChecked(checkResponse);
             } else {
