@@ -63,7 +63,7 @@ public class SampleRetrofitActivity extends AppCompatActivity implements Progres
         Call<Config> configCall = MyApi.getApi().getConfig();
         configCall.enqueue(new Callback<Config>() {
             @Override
-            public void onResponse(final Response<Config> response) {
+            public void onResponse(final Call<Config> call, final Response<Config> response) {
                 Toast.makeText(SampleRetrofitActivity.this, "Retrofit response received, storing in toggle", Toast.LENGTH_SHORT).show();
                 Config config = response.body();
                 Toggle.with(SampleRetrofitActivity.this).setConfig(config);
@@ -71,7 +71,7 @@ public class SampleRetrofitActivity extends AppCompatActivity implements Progres
             }
 
             @Override
-            public void onFailure(Throwable t) {
+            public void onFailure(final Call<Config> call, Throwable t) {
                 showMessage( "Error: " + t != null ? t.getMessage() : "Unknown");
             }
         });

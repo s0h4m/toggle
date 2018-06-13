@@ -63,8 +63,6 @@ public class ToggleNetworkTests {
     @Test
     public void toggle_network_check() {
         toggle_network_setConfig();
-        // make sure the config is not loaded from memory
-        Toggle.storeConfigInMem(null);
         // register the idling resource so that we can know when the config is done
         IdlingRegistry.getInstance().register(progressBarIdlingResource);
         // perform the button click
@@ -82,8 +80,6 @@ public class ToggleNetworkTests {
     @Test
     public void toggle_network_checkLatest() {
         toggle_network_setConfig();
-        // make sure the config is not loaded from memory
-        Toggle.storeConfigInMem(null);
         // register the idling resource so that we can know when the config is done
         IdlingRegistry.getInstance().register(progressBarIdlingResource);
         // perform the button click
