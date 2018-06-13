@@ -2,6 +2,7 @@ package cc.soham.toggle;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.annotation.VisibleForTesting;
 import android.text.TextUtils;
 import android.util.Log;
@@ -80,7 +81,7 @@ public class Toggle {
         this.sourceType = sourceType;
     }
 
-    public void setConfig(String configInString) {
+    public void setConfig(@NonNull String configInString) {
         setSourceType(SourceType.STRING);
         // store source
         PersistUtils.storeSourceType(getContext(), SourceType.STRING);
@@ -93,7 +94,14 @@ public class Toggle {
         PersistUtils.storeConfig(getContext(), config);
     }
 
-    public void setConfig(JsonElement configInJson) {
+    public void setConfig(@NonNull String configInString, @Nullable SetConfigCallback setConfigCallback) {
+        setConfig(configInString);
+        // make the callback if present
+        if (setConfigCallback != null)
+            setConfigCallback.onConfigReceived(config, false);
+    }
+
+    public void setConfig(@NonNull JsonElement configInJson) {
         setSourceType(SourceType.JSONOBJECT);
         // store source
         PersistUtils.storeSourceType(getContext(), SourceType.JSONOBJECT);
@@ -106,7 +114,14 @@ public class Toggle {
         PersistUtils.storeConfig(getContext(), config);
     }
 
-    public void setConfig(Config config) {
+    public void setConfig(@NonNull JsonElement configInJson, @Nullable SetConfigCallback setConfigCallback) {
+        setConfig(configInJson);
+        // make the callback if present
+        if (setConfigCallback != null)
+            setConfigCallback.onConfigReceived(config, false);
+    }
+
+    public void setConfig(@NonNull Config config) {
         // check for the config map
         if (config.getFeatureMap() == null)
             config.generateFeatureMap();
@@ -118,27 +133,18 @@ public class Toggle {
         PersistUtils.storeConfig(getContext(), config);
     }
 
-    public void setConfig(URL configUrl) {
+    public void setConfig(@NonNull Config config, @Nullable SetConfigCallback setConfigCallback) {
+        setConfig(config);
+        // make the callback if present
+        if (setConfigCallback != null)
+            setConfigCallback.onConfigReceived(config, false);
+    }
+
+    public void setConfig(@NonNull URL configUrl) {
         setConfig(configUrl, null);
     }
 
-    /**
-     * Sets config from an asset
-     * @param assetName
-     */
-    public void setConfigFromAsset(@NonNull String assetName) {
-        AssetReader.readFromAssetFile(getContext(), assetName, new AssetReader.OnAssetReadListener() {
-            @Override
-            public void onAssetRead(@NonNull String asset) {
-                if (!TextUtils.isEmpty(asset))
-                    setConfig(asset);
-                else
-                    Log.w(TAG,"Could not set the config to the asset file because it was empty or it did not exist");
-            }
-        });
-    }
-
-    public void setConfig(URL configUrl, SetConfigCallback setConfigCallback) {
+    public void setConfig(@NonNull URL configUrl, @Nullable SetConfigCallback setConfigCallback) {
         setSourceType(SourceType.URL);
         // store source
         PersistUtils.storeSourceType(getContext(), SourceType.URL);
@@ -149,6 +155,32 @@ public class Toggle {
         } else {
             SetConfigAsyncTask.start(getContext(), configUrl.toExternalForm(), setConfigCallback);
         }
+    }
+
+    /**
+     * Sets config from an asset
+     *
+     * @param assetName
+     */
+    public void setConfigFromAsset(@NonNull String assetName) {
+        setConfigFromAsset(assetName, null);
+    }
+
+    /**
+     * Sets config from an asset
+     *
+     * @param assetName
+     */
+    public void setConfigFromAsset(@NonNull String assetName, @Nullable final SetConfigCallback setConfigCallback) {
+        AssetReader.readFromAssetFile(getContext(), assetName, new AssetReader.OnAssetReadListener() {
+            @Override
+            public void onAssetRead(@NonNull String asset) {
+                if (!TextUtils.isEmpty(asset)) {
+                    setConfig(asset, setConfigCallback);
+                } else
+                    Log.w(TAG, "Could not set the config to the asset file because it was empty or it did not exist");
+            }
+        });
     }
 
     public CheckRequest.Builder check(String featureName) {
