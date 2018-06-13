@@ -3,6 +3,8 @@ package cc.soham.toggle;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
+import android.text.TextUtils;
+import android.util.Log;
 
 import com.google.gson.JsonElement;
 
@@ -11,6 +13,7 @@ import java.net.URL;
 import cc.soham.toggle.callbacks.PreferenceReadCallback;
 import cc.soham.toggle.callbacks.SetConfigCallback;
 import cc.soham.toggle.enums.SourceType;
+import cc.soham.toggle.file.AssetReader;
 import cc.soham.toggle.network.CheckLatestAsyncTask;
 import cc.soham.toggle.network.OkHttpUtils;
 import cc.soham.toggle.network.SetConfigAsyncTask;
@@ -23,6 +26,7 @@ import cc.soham.toggle.objects.Rule;
  * The core class that handles all Toggle functionality
  */
 public class Toggle {
+    private static final String TAG = "Toggle";
     // TODO: integrate leak cananary in the sample?
     // TODO: unit tests for the new memcache (store config in memcache for all conditions)
     // TODO: unit tests for file and rule metadata
@@ -104,7 +108,7 @@ public class Toggle {
 
     public void setConfig(Config config) {
         // check for the config map
-        if(config.getFeatureMap() == null)
+        if (config.getFeatureMap() == null)
             config.generateFeatureMap();
         setSourceType(SourceType.CONFIG);
         // store source
@@ -116,6 +120,22 @@ public class Toggle {
 
     public void setConfig(URL configUrl) {
         setConfig(configUrl, null);
+    }
+
+    /**
+     * Sets config from an asset
+     * @param assetName
+     */
+    public void setConfigFromAsset(@NonNull String assetName) {
+        AssetReader.readFromAssetFile(getContext(), assetName, new AssetReader.OnAssetReadListener() {
+            @Override
+            public void onAssetRead(@NonNull String asset) {
+                if (!TextUtils.isEmpty(asset))
+                    setConfig(asset);
+                else
+                    Log.w(TAG,"Could not set the config to the asset file because it was empty or it did not exist");
+            }
+        });
     }
 
     public void setConfig(URL configUrl, SetConfigCallback setConfigCallback) {
@@ -224,14 +244,14 @@ public class Toggle {
 
     @NonNull
     @VisibleForTesting
-    // TODO: unit test getExceptionCheckResponse
+        // TODO: unit test getExceptionCheckResponse
     CheckResponse getExceptionCheckResponse(CheckRequest checkRequest) {
         return new CheckResponse(checkRequest.featureName, DEFAULT_STATE, null, null, true);
     }
 
     @VisibleForTesting
-    // TODO: unit test makeFeatureCheckCallback
-    // TODO: unit test makeFeatureCheckCallback
+        // TODO: unit test makeFeatureCheckCallback
+        // TODO: unit test makeFeatureCheckCallback
     void makeFeatureCheckCallback(CheckRequest checkRequest, CheckResponse checkResponse) {
         checkRequest.callback.onStatusChecked(checkResponse);
     }
