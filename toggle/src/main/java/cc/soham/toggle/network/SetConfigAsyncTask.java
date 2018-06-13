@@ -2,6 +2,7 @@ package cc.soham.toggle.network;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.google.gson.JsonSyntaxException;
@@ -22,7 +23,7 @@ public class SetConfigAsyncTask extends AsyncTask<Void, Void, SetConfigResponse>
     final SetConfigCallback setConfigCallback;
     final Context context;
 
-    public SetConfigAsyncTask(final Context context, String url, SetConfigCallback setConfigCallback) {
+    public SetConfigAsyncTask(@NonNull final Context context, @NonNull String url, @Nullable SetConfigCallback setConfigCallback) {
         this.context = context;
         this.url = url;
         this.setConfigCallback = setConfigCallback;
@@ -44,7 +45,7 @@ public class SetConfigAsyncTask extends AsyncTask<Void, Void, SetConfigResponse>
      * @param setConfigResponse
      */
     @Override
-    protected void onPostExecute(SetConfigResponse setConfigResponse) {
+    protected void onPostExecute(@NonNull SetConfigResponse setConfigResponse) {
         NetworkUtils.initiateCallback(setConfigResponse, setConfigCallback);
     }
 
@@ -54,7 +55,7 @@ public class SetConfigAsyncTask extends AsyncTask<Void, Void, SetConfigResponse>
      * @return the {@link SetConfigResponse} for the given url
      */
     @Nullable
-    private static SetConfigResponse getSetConfigResponse(final Context context, String url) {
+    private static SetConfigResponse getSetConfigResponse(@NonNull final Context context, @NonNull String url) {
         try {
             // make network request to receive response
             String response = NetworkUtils.downloadUrl(url);
@@ -90,7 +91,7 @@ public class SetConfigAsyncTask extends AsyncTask<Void, Void, SetConfigResponse>
      * @param url
      * @param setConfigCallback
      */
-    public static void start(final Context context, String url, SetConfigCallback setConfigCallback) {
+    public static void start(@NonNull final Context context, @NonNull String url, @Nullable SetConfigCallback setConfigCallback) {
         if (url == null) {
             throw new IllegalStateException("Please pass a valid url");
         }
