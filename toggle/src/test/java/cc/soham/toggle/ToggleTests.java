@@ -511,7 +511,7 @@ public class ToggleTests {
         assertThat(checkResponse.featureName).isEqualTo(featureToBeSearched);
         assertThat(checkResponse.ruleMetadata).isEqualTo(null);
         assertThat(checkResponse.cached).isFalse();
-        assertThat(checkResponse.state).isEqualTo(Toggle.DEFAULT_STATE);
+        assertThat(checkResponse.state).isEqualTo(Toggle.DOES_NOT_EXIST);
     }
 
     // feature present but no conclusion could not be made

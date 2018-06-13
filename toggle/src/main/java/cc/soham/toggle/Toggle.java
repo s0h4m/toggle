@@ -39,6 +39,7 @@ public class Toggle {
     public static final String DEFAULT_STATE = "default";
     public static final String ENABLED = "enabled";
     public static final String DISABLED = "disabled";
+    public static final String DOES_NOT_EXIST = "does_not_exist";
 
     @VisibleForTesting
     static volatile Toggle singleton;
@@ -306,7 +307,7 @@ public class Toggle {
         // check if there was no default state in the request, send enabled (default toggle)
         String state;
         if (checkRequest.defaultState == null) {
-            state = DEFAULT_STATE;
+            state = DOES_NOT_EXIST;
         } else {
             state = checkRequest.defaultState;
         }
